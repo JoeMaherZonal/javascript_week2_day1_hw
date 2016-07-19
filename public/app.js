@@ -24,15 +24,16 @@ function main(){
 
   //targets elements within li aswell as li for deletion
   var ul = document.getElementById('quote-list'); 
-  ul.addEventListener('click', function (e) {
-      var target = e.target;
-      while (target && target.parentNode !== ul) {
-          target = target.parentNode;
-          if(!target) { return; }
-      }
-      if (target.tagName === 'LI'){
-          deleteQuote(target.firstChild.innerText)
-      }
+  ul.addEventListener('click', function(event){
+    var target = event.target;
+
+    while (target && target.parentNode !== ul){
+      target = target.parentNode;
+      if(!target){return;}
+    }
+    if (target.tagName === 'LI'){
+      deleteQuote(target.firstChild.innerText)
+    }
   });
   //displays input in real time
   var quoteInput = document.getElementById('quote-text-input');
@@ -66,8 +67,13 @@ function addQuote(){
   author = document.getElementById('author-text-input').value;
   quote = document.getElementById('quote-text-input').value;
   quoteArray.push( {'quote': quote, 'author': author} );
-  console.log(quoteArray)
-  populateQuotes()
+  clearInput();
+  populateQuotes();
+}
+
+function clearInput(){
+  document.getElementById('author-text-input').value = "";
+  document.getElementById('quote-text-input').value = "";
 }
 
 function populateQuotes(){
@@ -90,7 +96,6 @@ function populateQuotes(){
 }
 
 function addEmptyli(){
-  console.log("Im here!")
   var ul = document.getElementById('quote-list')
   var li = document.createElement('li');
   var blockquote = document.createElement('blockquote')
