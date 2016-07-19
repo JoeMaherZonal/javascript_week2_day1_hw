@@ -1,6 +1,5 @@
 window.onload = function(){
   main()
-  populateQuotes();
 }
 
 function main(){
@@ -11,7 +10,7 @@ function main(){
   {quote: "I used the jQuery diet plugin and lost 10kg in a week.", author: "Keith"},
   {quote: "Scaffolding is nothing but a fiery hell.", author: "Val"}
   ]
-
+  populateQuotes();
   //adds quote to page
   var inputBtn = document.getElementById("add-button");
   inputBtn.onclick = addQuote;
@@ -35,20 +34,22 @@ function main(){
           deleteQuote(target.firstChild.innerText)
       }
   });
-
   //displays input in real time
   var quoteInput = document.getElementById('quote-text-input');
   var authorInput = document.getElementById('author-text-input');
-  quoteInput.onkeyup = addRealTimeQuote;
-  authorInput.onkeyup = addRealTimeAuthor;
+  quoteInput.onkeyup = AddQuoteRealTime;
+  authorInput.onkeyup = AddCiteRealTime;
+
 }//end of main
 
-function addRealTimeAuthor(){
-  document.getElementById('typingCite').innerText = authorInput.value;
+function AddQuoteRealTime(){
+  var text = document.getElementById('quote-text-input').value;
+  document.getElementById('typingQuote').innerText = text;
 }
 
-function addRealTimeQuote(){
-  document.getElementById('typingQuote').innerText = quoteInput.value;
+function AddCiteRealTime(){
+  var text = document.getElementById('author-text-input').value;
+  document.getElementById('typingCite').innerText = text;
 }
 
 function deleteQuote(innerText){
@@ -70,8 +71,10 @@ function addQuote(){
 }
 
 function populateQuotes(){
+
   clearQuotes();
   for(quote of quoteArray){
+    var ul = document.getElementById('quote-list')
     var li = document.createElement('li');
     var blockquote = document.createElement('blockquote')
     var cite = document.createElement('cite')
@@ -87,6 +90,8 @@ function populateQuotes(){
 }
 
 function addEmptyli(){
+  console.log("Im here!")
+  var ul = document.getElementById('quote-list')
   var li = document.createElement('li');
   var blockquote = document.createElement('blockquote')
   var cite = document.createElement('cite')
